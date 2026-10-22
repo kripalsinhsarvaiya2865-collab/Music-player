@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Naitri Music</title>
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#14101f">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -16,6 +16,10 @@
 html,body{height:100%}
 body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Noto Sans Gujarati",sans-serif;display:flex;flex-direction:column;overflow:hidden;padding-top:env(safe-area-inset-top)}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+#top{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid #ffffff14}
+#top img{width:32px;height:32px;border-radius:8px}
+#top b{font-size:17px}
+img.cover{border-radius:22%;background:none;object-fit:cover}
 .tab{display:none;flex:1;min-height:0;flex-direction:column}
 .tab.on{display:flex}
 #pager{flex:1;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none}
@@ -56,6 +60,7 @@ nav button.on{color:var(--ac)}
 </style>
 </head>
 <body>
+<header id="top"><img src="icon-192.png" alt="Naitri Music"><b>Naitri Music</b></header>
 
 <section class="tab on" id="home">
   <div id="pager"></div>
@@ -87,7 +92,7 @@ nav button.on{color:var(--ac)}
   <div class="list" id="manList"></div>
 </section>
 
-<div id="mini"><span style="font-size:22px">♪</span><div class="t" id="mt"></div><button id="mpp">▶</button><button id="mnext">⏭</button></div>
+<div id="mini"><img src="icon-192.png" alt="" style="width:34px;height:34px;border-radius:8px"><div class="t" id="mt"></div><button id="mpp">▶</button><button id="mnext">⏭</button></div>
 
 <nav>
   <button data-t="home" class="on"><span>🏠</span>હોમ</button>
@@ -145,7 +150,7 @@ function render(){
   const sg=songs.map(s=>s.id+s.title).join("|");
   if(sg!==sig){
     sig=sg;
-    $("pager").innerHTML=songs.length?songs.map(s=>`<div class="slide"><div class="cover">♪</div><h2>${esc(s.title)}</h2><p>નીચે સ્ક્રોલ કરો, આગળનું ગીત વાગશે</p></div>`).join(""):'<div class="slide"><div class="empty">હજી કોઈ ગીત નથી. અપલોડ ટેબમાંથી ઉમેરો.</div></div>';
+    $("pager").innerHTML=songs.length?songs.map(s=>`<div class="slide"><img class="cover" src="icon-512.png" alt=""><h2>${esc(s.title)}</h2><p>નીચે સ્ક્રોલ કરો, આગળનું ગીત વાગશે</p></div>`).join(""):'<div class="slide"><div class="empty">હજી કોઈ ગીત નથી. અપલોડ ટેબમાંથી ઉમેરો.</div></div>';
     scrollPager(false);
   }
   $("allList").innerHTML=songs.length?songs.map((s,i)=>`<div class="row ${i===cur?"cur":""}" data-i="${i}"><div class="n">${i===cur&&!audio.paused?"♫":i+1}</div><div class="t">${esc(s.title)}</div></div>`).join(""):'<div class="empty">કોઈ ગીત નથી</div>';
